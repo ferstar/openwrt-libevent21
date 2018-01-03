@@ -8,14 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libevent2
-PKG_VERSION:=2.1.5
+PKG_VERSION:=2.1.6
 PKG_RELEASE:=1
 PKG_SFX:=beta
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/libevent-release-$(PKG_VERSION)-$(PKG_SFX)
 PKG_SOURCE:=release-$(PKG_VERSION)-$(PKG_SFX).tar.gz
-PKG_SOURCE_URL:=https://github.com/frymode/libevent/archive
-PKG_MD5SUM:=7b264c9794a4a4cf79b8c6a5b1f72658
+PKG_SOURCE_URL:=https://github.com/libevent/libevent/archive
+PKG_MD5SUM:=321b64a8c3dd02ce79a924bcfd77ffe0
 PKG_MAINTAINER:=Jo-Philipp Wich <jow@openwrt.org>
 PKG_LICENSE:=BSD-3-Clause
 
@@ -80,19 +80,6 @@ define Package/libevent2-extra/description
 	protocols including HTTP, DNS & RPC.
 endef
 
-define Package/libevent2-openssl
-  $(call Package/libevent2/Default)
-  TITLE+= OpenSSL library (version 2.1)
-  DEPENDS+=+libopenssl
-endef
-
-define Package/libevent2-openssl/description
-	$(call Package/libevent2/Default/description)
-
-	This package contains the libevent OpenSSL shared library for encrypted
-	bufferevents.
-endef
-
 define Package/libevent2-pthreads
   $(call Package/libevent2/Default)
   TITLE+= Pthreads library (version 2.1)
@@ -111,7 +98,8 @@ TARGET_CFLAGS += $(FPIC)
 CONFIGURE_ARGS += \
 	--enable-shared \
 	--enable-static \
-	--disable-debug-mode
+	--disable-debug-mode \
+	--disable-openssl
 
 MAKE_FLAGS += \
 	CFLAGS="$(TARGET_CFLAGS)"
@@ -141,11 +129,6 @@ define Package/libevent2-extra/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libevent_extra-2.1.so.* $(1)/usr/lib/
 endef
 
-define Package/libevent2-openssl/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libevent_openssl-2.1.so.* $(1)/usr/lib/
-endef
-
 define Package/libevent2-pthreads/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libevent_pthreads-2.1.so.* $(1)/usr/lib/
@@ -154,5 +137,4 @@ endef
 $(eval $(call BuildPackage,libevent2))
 $(eval $(call BuildPackage,libevent2-core))
 $(eval $(call BuildPackage,libevent2-extra))
-$(eval $(call BuildPackage,libevent2-openssl))
 $(eval $(call BuildPackage,libevent2-pthreads))
