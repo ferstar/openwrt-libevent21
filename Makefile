@@ -8,14 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libevent2
-PKG_VERSION:=2.1.6
+PKG_VERSION:=2.1.8
 PKG_RELEASE:=1
-PKG_SFX:=beta
+PKG_SFX:=stable
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/libevent-release-$(PKG_VERSION)-$(PKG_SFX)
 PKG_SOURCE:=release-$(PKG_VERSION)-$(PKG_SFX).tar.gz
 PKG_SOURCE_URL:=https://github.com/libevent/libevent/archive
-PKG_MD5SUM:=321b64a8c3dd02ce79a924bcfd77ffe0
+PKG_MD5SUM:=80f8652e4b08d2ec86a5f5eb46b74510
 PKG_MAINTAINER:=Jo-Philipp Wich <jow@openwrt.org>
 PKG_LICENSE:=BSD-3-Clause
 
